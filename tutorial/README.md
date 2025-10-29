@@ -19,7 +19,7 @@ Run Mi:dm 2.0 with optimal generation settings.
 <br>
 
 ## 🧩 3. Plug Mi:dm 2.0 into Open WebUI  
-Integrate Mi:dm 2.0 with **Open WebUI** using **Ollama**, including two hands-on exercises: **MCP** & **RAG**!  
+Integrate Mi:dm 2.0 with **Open WebUI**, including two hands-on exercises: **MCP** & **RAG**!  
 👉 [**View Tutorial**](./03_open-webui)
 
 <br>
