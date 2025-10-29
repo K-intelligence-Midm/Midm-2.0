@@ -37,7 +37,7 @@ Once the containers are running, you can access the services at:
 > **📝 Note:**  
 > Ensure that ports `3000` and `8000` are available and not blocked by other applications or firewalls.
 
-You can connect Mi:dm 2.0 via Ollama as described in the [previous guide](../README.md#-2-connect-midm-via-ollama).
+You can connect Mi:dm 2.0 as described in the [previous guide](../README.md#-2-connect-midm-20).
 
 <br>
 
