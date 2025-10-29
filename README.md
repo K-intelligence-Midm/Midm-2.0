@@ -18,7 +18,7 @@
 
 ## News 📢
 
-- 🔜 _(Coming Soon!) GGUF format model files will be available soon for easier local deployment._
+- 🔧`2025/10/29`: Added support for function calling on vLLM with Mi:dm 2.0 parser.
 - 📕`2025/08/08`: Published a technical blog article about Mi:dm 2.0 Model.
 - ⚡️`2025/07/04`: Released Mi:dm 2.0 Model collection on Hugging Face🤗.
 
@@ -581,10 +581,32 @@ ollama run midm-2.0:base
 
 ### Deployment
 
+#### Basic Serving
+
 To serve Mi:dm 2.0 using [vLLM](https://github.com/vllm-project/vllm)(`>=0.8.0`) with an OpenAI-compatible API:
 ```bash
 vllm serve K-intelligence/Midm-2.0-Base-Instruct
 ```
+
+#### With Function Calling
+
+For advanced function calling tasks, you can serve Mi:dm 2.0 with our own tool parser:
+1. Download and place [Mi:dm 2.0 parser file](./tutorial/03_open-webui/modelfile/midm_parser.py) in your working directory.
+2. Run the following Docker command to launch the vLLM server with our custom parser file:
+    ```bash
+    docker run --rm -it --gpus all -p 8000:8000 \
+        -e HUGGING_FACE_HUB_TOKEN="<YOUR_HUGGINGFACE_TOKEN>" \
+        -v "$(pwd)/midm_parser.py:/custom/midm_parser.py" \
+        vllm/vllm-openai:v0.11.0 \
+        --model K-intelligence/Midm-2.0-Base-Instruct \
+        --enable-auto-tool-choice \
+        --tool-parser-plugin /custom/midm_parser.py \
+        --tool-call-parser midm-parser \
+        --host 0.0.0.0
+    ```
+
+>[!Note]
+> This setup is compatible with `vllm/vllm-openai:v0.8.0` and later, but we strongly recommend using `v0.11.0` for optimal stability and compatibility with our parser.
 
 <br>
 
@@ -603,7 +625,7 @@ We provide several examples to help you get started with Mi:dm 2.0 quickly and e
 | Tutorial                          | Description                                                                     | Link             |
 |-----------------------------------|---------------------------------------------------------------------------------|------------------|
 | 📘 Supervised Fine-Tuning         | Fine-tune Mi:dm 2.0 using `trl` and `SFTTrainer` with the SimpleQA-GenX2 dataset | [🔗](./tutorial/01_fine-tuning) |
-| 🎯 Inference with Mi:dm 2.0-Mini  | Run Mi:dm 2.0-Mini with optimal generation settings                              | [🔗](./tutorial/02_inference) |
+| 🎯 Inference with Mi:dm 2.0 Mini  | Run Mi:dm 2.0 Mini with optimal generation settings                              | [🔗](./tutorial/02_inference) |
 | 🧩 Plug Mi:dm 2.0 into Open WebUI | Integrate Mi:dm 2.0 with Open WebUI using Ollama and Explore MCP & RAG exercises | [🔗](./tutorial/03_open-webui) |
 | 🗺️ Mi:dm 2.0 Prompt Examples      | A collection of prompting examples and use cases across key tasks and domains    | [🔗](./tutorial/04_prompt_examples) |
 
