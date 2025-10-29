@@ -4,7 +4,7 @@ This section explains how to integrate **Mi:dm 2.0** with [Open WebUI](https://g
 
 This guide covers how to:
 - Launch Open WebUI using Docker
-- Connect Mi:dm 2.0 via [Ollama](https://ollama.com/)
+- Connect Mi:dm 2.0 via [Ollama](https://ollama.com/) or [vLLM](https://github.com/vllm-project/vllm)
 - Enable advanced features like **Model Context Protocol (MCP)** and **Retrieval-Augmented Generation (RAG)**
 
 ---
@@ -46,12 +46,11 @@ Once the container is running, you can access Open WebUI at http://localhost:300
 
 <br>
 
-## 🔌 2. Connect Mi:dm 2.0 via Ollama
+## 🔌 2. Connect Mi:dm 2.0
 
-Mi:dm 2.0 supports OpenAI-compatible APIs and can be served using platforms like llama.cpp or LM Studio.
-For seamless integration with Open WebUI, we recommend using **Ollama**.
+Mi:dm 2.0 supports OpenAI-compatible APIs and can be served using **Ollama** or **vLLM**.
 
-### 🛠️ Setup Steps
+### 🦙 Option A: Connect via Ollama
 
 1. Install Ollama on your local machine.
 
@@ -71,6 +70,16 @@ For seamless integration with Open WebUI, we recommend using **Ollama**.
 
     > **📝 Note:**  
     > Ensure the `.gguf` file name exactly matches the `FROM` line in the `Modelfile`.
+
+### ⚡️ Option B: Connect via vLLM
+
+1. Run a vLLM server using the ready-to-use command from our [Mi:dm 2.0 deployment guide](../../README.md#deployment).
+
+    > **📝 Note:**  
+    > Ensure the vLLM server uses a port different from other services. For example, since Open WebUI and the MCP server typically use ports `3000` and `8000` respectively, you can set the vLLM server to `8001`.
+
+2. In the Open WebUI interface, navigate to `Settings` > `Connections` for adding a new OpenAI-compatible server.
+3. Enter the API Base URL of your running vLLM server (e.g., `http://localhost:8001/v1`), and select Mi:dm 2.0 from the model dropdown on the main chat page.
 
 <br>
 
